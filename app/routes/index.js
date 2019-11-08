@@ -3,13 +3,26 @@ var router = express.Router();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var session=require('express-session');
+var page_life=1000*3600*24;
 
-
+const{
+  PORT=2000,
+  NODE_ENV='development',
+  SESS_NAME='sess',
+  SESS_LIFE=page_life
+}=process.env
 
 router.use(session({
+  name:SESS_NAME,
+  cookie:{
+    maxAge:SESS_LIFE,
+    sameSite:true,
+
+
+  },
   secret:'appyfizz',
   resave:false,
-  saveUninitialized:true
+  saveUninitialized:false,
 }));
 
 var connection = mysql.createConnection({
@@ -18,14 +31,29 @@ var connection = mysql.createConnection({
     password : 'password',
     database : 'accreditation'
   });
+  const redirectLogin= (req,res,next)=>{
+    let sess=req.session;
+    if(!(sess.flag)){
+      res.redirect('/login'); 
+    }
+    else{
+      next();
+    }
+  }
+  const redirectHome= (req,res,next)=>{
+    let sess=req.session;
 
+    if(sess.flag){
+      res.redirect('/home'); 
+    }
+    else{
+      next();
+    }
+  }
 /*GET home page. */
-router.get('/', function(req, res, next) {
-  session=req.session;
-  if(!(session.flag))
+router.get('/',redirectHome, function(req, res, next) {
+  let sess=req.session;
     res.render('index', { title: 'Express' });
-  else
-    res.render('profile',{title:sessions.id}); 
 });
 // router.post('/login', function(req, res, next) {
 //   res.render('login', { title: 'Express' });
@@ -33,7 +61,7 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
-router.get('/logout',(req,res)=>{
+router.get('/logout',redirectLogin,(req,res)=>{
   req.session.destroy((error)=>
    {
      console.log('error');
@@ -52,26 +80,27 @@ router.post('/login_check', bodyParser.urlencoded({ extended: false }),function 
   {
           console.log('Connection result error '+err);
           if(rows.length==1){
+            console.log('hahahahahahahahahahahah');
+            
             // res.writeHead(200, { 'Content-Type': 'application/json'});
             // res.end(JSON.stringify(rows));
             // res.end();
-            session.id=user;
-            session.flag=true;
-            res.redirect('/redirect')
+            req.session.id=user;
+            req.session.flag=true;
+            res.redirect('/home');
             console.log(session);
-            
 
           }
           else{
+
             res.redirect('/login');
-            
           }
 
   })
   console.log(req.body.userid);
 });
 
-router.get('/redirect',(req,res)=>{
+router.get('/home',redirectLogin,(req,res)=>{
   res.render('profile',{title:session.id});
 });
 

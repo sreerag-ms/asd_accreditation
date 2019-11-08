@@ -3,24 +3,38 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var PORT=2000;
+var page_life=1000*3600*24;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter=require('./routes/login');
 var loggedInRouter = require('./routes/logged_in')
-var sessions=require('express-session');
+var session=require('express-session');
 
-
+const{
+  PORT=2000,
+  NODE_ENV='development',
+  SESS_NAME='sess',
+  SESS_LIFE=page_life
+}=process.env;
 var app = express();
 var bodyParser = require('body-parser');
 
 
 const { Client } = require('pg');
 const client = new Client();
-app.use(sessions({
-  secret:'asdasdasbafbdsiy48725y837641437918eujcq n i7ney12362318263187321231641856q379(A^*^*&Q#$*YHQE CNRYQ(WJ DNsDJ)(WI)Q(WUWH&*EYQW*&RY*&QY'
-  }))
+app.use(session({
+  name:SESS_NAME,
+  cookie:{
+    maxAge:SESS_LIFE,
+    sameSite:true,
+
+
+  },
+  secret:'appyfizz',
+  resave:false,
+  saveUninitialized:false,
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 var mysql=require('mysql');
