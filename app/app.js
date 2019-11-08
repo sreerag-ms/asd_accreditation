@@ -8,6 +8,9 @@ var PORT=2000;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter=require('./routes/login');
+var loggedInRouter = require('./routes/logged_in')
+var sessions=require('express-session');
+
 
 var app = express();
 var bodyParser = require('body-parser');
@@ -15,7 +18,9 @@ var bodyParser = require('body-parser');
 
 const { Client } = require('pg');
 const client = new Client();
-
+app.use(sessions({
+  secret:'asdasdasbafbdsiy48725y837641437918eujcq n i7ney12362318263187321231641856q379(A^*^*&Q#$*YHQE CNRYQ(WJ DNsDJ)(WI)Q(WUWH&*EYQW*&RY*&QY'
+  }))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 var mysql=require('mysql');
@@ -47,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login',loginRouter);
+app.use('/logged_in',loggedInRouter);
 
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
