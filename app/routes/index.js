@@ -4,6 +4,8 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var session=require('express-session');
 var page_life=1000*3600*24;
+const bcrypt = require('bcrypt');
+const hash = 10;
 
 const{
   PORT=2000,
@@ -33,7 +35,7 @@ var connection = mysql.createConnection({
   });
   const redirectLogin= (req,res,next)=>{
     let sess=req.session;
-    if(!(sess.flag)){
+    if(!(req.session.flag)){
       res.redirect('/login'); 
     }
     else{
@@ -42,23 +44,23 @@ var connection = mysql.createConnection({
   }
   const redirectHome= (req,res,next)=>{
     let sess=req.session;
-
-    if(sess.flag){
+    if(req.session.flag){
       res.redirect('/home'); 
     }
     else{
       next();
     }
   }
+
 /*GET home page. */
-router.get('/',redirectHome, function(req, res, next) {
+router.get('/', function(req, res, next) {
   let sess=req.session;
     res.render('index', { title: 'Express' });
 });
 // router.post('/login', function(req, res, next) {
 //   res.render('login', { title: 'Express' });
 // });
-router.get('/login', function(req, res, next) {
+router.get('/login',redirectHome, function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 router.get('/logout',redirectLogin,(req,res)=>{
@@ -73,6 +75,7 @@ router.get('/logout',redirectLogin,(req,res)=>{
 
 
 router.post('/login_check', bodyParser.urlencoded({ extended: false }),function (req, res) {
+  let sess=req.session;
   let user=req.body.userid;
   let pass=req.body.pass;
   // let semester=parseInt(req.body.semester);
@@ -80,15 +83,15 @@ router.post('/login_check', bodyParser.urlencoded({ extended: false }),function 
   {
           console.log('Connection result error '+err);
           if(rows.length==1){
-            console.log('hahahahahahahahahahahah');
+            console.log('user');
             
             // res.writeHead(200, { 'Content-Type': 'application/json'});
             // res.end(JSON.stringify(rows));
             // res.end();
-            req.session.id=user;
+            req.session.uniqueId=user;
             req.session.flag=true;
             res.redirect('/home');
-            console.log(session);
+            console.log(req.session);
 
           }
           else{

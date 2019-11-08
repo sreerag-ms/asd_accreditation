@@ -7,7 +7,7 @@ var page_life=1000*3600*24;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var loginRouter=require('./routes/login');
+var loginRouter=require('./routes/home/index');
 var loggedInRouter = require('./routes/logged_in')
 var session=require('express-session');
 
@@ -65,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login',loginRouter);
+app.use('/home',loginRouter);
 app.use('/logged_in',loggedInRouter);
 
 connection.connect();
