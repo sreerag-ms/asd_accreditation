@@ -6,8 +6,12 @@ var add_query="";
 var mysql=require('mysql');
 var session=require('express-session');
 var page_life=1000*3600*24;
+var Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 const hash = 10;
+
+
+
 
 const{
   PORT=2000,
@@ -42,9 +46,35 @@ router.get('/add_course',(req,res)=>{
 })
 
 router.post('/add_course',bodyParser.urlencoded({ extended: false }),(req,res)=>{
+  var courseid=req.body.course;
+  var coursename=req.body.course_name;
+  var batch=req.body.batch;
 
-  res.send(JSON.stringify(req.session));
-  // INSERT INTO `course_dynamic` (`course_code`, `fac_id`, `batch`) VALUES ('MA101', 'fac1', '2018');
+  var s=req.session;
+  res.send(s.uniqueId);
+  connection.query("INSERT INTO `course_dynamic` (`course_code`, `fac_id`, `batch`) VALUES ('"+courseid+"', '"+s.uniqueId+"', '"+batch+"');", function(err, rows, fields)
+  {    
+          console.log('Connection result error '+err);
+          if(!err){
+            console.log('user');
+            
+            // res.writeHead(200, { 'Content-Type': 'application/json'});
+            // res.end(JSON.stringify(rows));
+            // res.end();
+            // res.redirect('../home');
+            console.log(s);
+
+          }
+          else{
+            throw err;
+            console.log('sadasdasd');
+            
+            res.send('corrupt data');
+          }
+
+  })
+  
+  // 
 })
 
 

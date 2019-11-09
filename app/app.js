@@ -8,8 +8,11 @@ var page_life=1000*3600*24;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter=require('./routes/home/index');
+var testRouter=require('./routes/testingOnly/index');
 var loggedInRouter = require('./routes/logged_in')
 var session=require('express-session');
+var db=require('./models/dat');
+
 
 const{
   PORT=2000,
@@ -67,6 +70,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home',loginRouter);
 app.use('/logged_in',loggedInRouter);
+app.use('/testingOnly',testRouter);
 
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
