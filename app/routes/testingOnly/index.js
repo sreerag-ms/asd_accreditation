@@ -5,16 +5,22 @@ var db=require('../../models/dat');
 var dyn=require('../../models/dynamic')
 
   db.authenticate()
-    .then(()=>console.log('connected'))
+    .then(()=>console.log('connected to database'))
     .catch(err=>(console.log('error')
     ))
 /* GET users listing. */
 router.get('/',(req,res)=>{
-    res.send('sad');
+    res.send('sdasdasd')
+    dyn.findAll()
+        .then(dyn=>{
+
+            console.log(dyn);
+            res.sendStatus(200);
+        })
 })
 router.get('/add',(req,res)=>{
     const data={
-        course_code:"MA200",
+        course_code:"M300",
         fac_id:"211",
         batch:"1999"
     }
@@ -26,6 +32,6 @@ router.get('/add',(req,res)=>{
     .catch(err=>console.log('error')
     )
 })
-console.log('adasd');
+// console.log('adasd');
 
 module.exports = router;

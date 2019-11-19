@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="form">
+              <form class="login-form" method="POST" action="/admin/signup">
+                <input type="text" id="useraName" name="fac_name" placeholder="Name"/>
+                <input type="text" name="fac_id" placeholder="Faculty Id"/>
+                <input type="text" name="email" placeholder="email"/>
+                <input type="password" id="pass" placeholder="password"/>
+                <input type="password" name="pass" placeholder="confirm password"/>
+                <button onclick="submitCheck()">signup</button>
+                <p class="message">Already registered? <a href="#">Login to your account</a></p>
+              </form>
+            </div>
+          </div>
+
+          <script src="/script/script.js"></script>
+    </body>
+</html>
