@@ -9,18 +9,20 @@
 <body>
         <form method="post" action="/home/add_course">
             <select name="course">
-              <option value="volvo">course1</option>
-              <option value="saab">Course</option>
-              <option value="fiat">Course</option>
-              <option value="audi">Course</option>
+                <% for (var i =0; i < courseList.length;  i++ ) { %>
+                  <option value=<%= courseList[i].course_code %>><%= courseList[i].name %></option>
+
+                <% } %>
             </select>
 
             <select name="course_name">
-            <option value="">course1</option>
-            <option value="">Course</option>
-            <option value="">Course</option>
-            <option value="">Course</option>
-          </select>
+
+
+                <% for (var i =0; i < courseList.length;  i++ ) { %>
+                    <option value="volvo"><%= courseList[i].course_code %></option>
+
+                  <% } %>
+            </select>
           <input type="text" name="batch">
             <br><br>
             <input type="submit">

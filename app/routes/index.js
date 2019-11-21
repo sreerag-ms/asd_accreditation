@@ -11,7 +11,7 @@ const{
   PORT=2000,
   NODE_ENV='development',
   SESS_NAME='sess',
-  SESS_LIFE=page_life
+  SESS_LIFE=new Date(Date.now() + 3600000)
 }=process.env
 
 router.use(session({
@@ -36,7 +36,7 @@ var connection = mysql.createConnection({
   const redirectLogin= (req,res,next)=>{
     let sess=req.session;
     if(!(req.session.flag)){
-      res.redirect('/login'); 
+      res.redirect('/login');
     }
     else{
       next();
@@ -45,7 +45,7 @@ var connection = mysql.createConnection({
   const redirectHome= (req,res,next)=>{
     let sess=req.session;
     if(req.session.flag){
-      res.redirect('/home'); 
+      res.redirect('/home');
     }
     else{
       next();
@@ -79,11 +79,11 @@ router.post('/login_check', bodyParser.urlencoded({ extended: false }),function 
   let user=req.body.userid;
   let pass=req.body.pass;
   // let semester=parseInt(req.body.semester);
-  connection.query("SELECT name,mailid FROM faculty_details WHERE fac_id LIKE '"+user+"' ", function(err, rows, fields)
+  connection.query("SELECT fac_id,mailid FROM faculty_details WHERE fac_id LIKE '"+user+"' ", function(err, rows, fields)
   {
           console.log('Connection result error '+err);
           if(rows.length==1){
-            console.log('user');
+            console.log('user found');
             
             // res.writeHead(200, { 'Content-Type': 'application/json'});
             // res.end(JSON.stringify(rows));
@@ -104,7 +104,7 @@ router.post('/login_check', bodyParser.urlencoded({ extended: false }),function 
 });
 
 router.get('/home',redirectLogin,(req,res)=>{
-  res.render('profile',{title:session.id});
+  res.render('profile',{title:req.session.uniqueId});
 });
 
 module.exports = router;

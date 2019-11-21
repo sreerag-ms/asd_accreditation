@@ -9,7 +9,15 @@ var page_life=1000*3600*24;
 var Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 const hash = 10;
+var db=require('../../models/dat');
+var course_list=require('../../models/course_list');
 
+var dyn=require('../../models/dynamic')
+
+  db.authenticate()
+    .then(()=>console.log('connected to database'))
+    .catch(err=>(console.log('error')
+    ))
 
 
 
@@ -17,7 +25,7 @@ const{
   PORT=2000,
   NODE_ENV='development',
   SESS_NAME='sess',
-  SESS_LIFE=page_life
+  SESS_LIFE=new Date(Date.now() + 3600000)
 }=process.env
 
 router.use(session({
@@ -33,48 +41,51 @@ router.use(session({
   saveUninitialized:false,
 }));
 
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'phpmyadmin',
-    password : 'password',
-    database : 'accreditation'
-  });
+
 
 
 router.get('/add_course',(req,res)=>{
-    res.render('add_course');
+course_list.findAll({
+  raw:true,
+
+  attributes:["course_code","name"]
+
+}).then(function(project) {
+
+  console.log(project); 
+  res.render('add_course',{courseList:project});
+
+  // project will be the first entry of the Projects table with the title 'aProject' || null
+  // project.title will contain the name of the project
+})
+
+// console.log(courseList[0].course_code); 
+
 })
 
 router.post('/add_course',bodyParser.urlencoded({ extended: false }),(req,res)=>{
   var courseid=req.body.course;
   var coursename=req.body.course_name;
-  var batch=req.body.batch;
+  var year=req.body.batch;
 
   var s=req.session;
   res.send(s.uniqueId);
-  connection.query("INSERT INTO `course_dynamic` (`course_code`, `fac_id`, `batch`) VALUES ('"+courseid+"', '"+s.uniqueId+"', '"+batch+"');", function(err, rows, fields)
-  {    
-          console.log('Connection result error '+err);
-          if(!err){
-            console.log('user');
-            
-            // res.writeHead(200, { 'Content-Type': 'application/json'});
-            // res.end(JSON.stringify(rows));
-            // res.end();
-            // res.redirect('../home');
-            console.log(s);
+  const data={
+    course_code:courseid,
+    fac_id:s.uniqueId,
+    batch:year
+}
+let {course_code,fac_id,batch}=data;
+dyn.create({
+  course_code,fac_id,batch
+})
+.then(()=>{res.redirect('/home');
+})
+.catch(err=>console.log("error")
+)
 
-          }
-          else{
-            throw err;
-            console.log('sadasdasd');
-            
-            res.send('corrupt data');
-          }
-
-  })
-  
   // 
+
 })
 
 
