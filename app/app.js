@@ -13,6 +13,7 @@ var loggedInRouter = require('./routes/logged_in')
 var session=require('express-session');
 var db=require('./models/dat');
 var adminRouter=require('./routes/admin/index');
+var courseRouter=require('./routes/home/course')
 
 const{
   PORT=2000,
@@ -72,7 +73,7 @@ app.use('/home',loginRouter);
 app.use('/logged_in',loggedInRouter);
 app.use('/testingOnly',testRouter);
 app.use('/admin',adminRouter);
-
+app.use('/courses',courseRouter);
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   if (error) throw error;

@@ -10,6 +10,7 @@ var dyn=require('../models/dynamic')
 
 var db=require('../models/dat');
 var faculty_details=require('../models/faculty_details');
+var course_list=require('../models/course_list');
 
 
 const{
@@ -112,11 +113,12 @@ router.get('/home',redirectLogin,(req,res)=>{
   dyn.findAll({
     raw:true,
     where:{fac_id:req.session.uniqueId},
-    attributes:["course_code","batch","updatedAt"],
+    attributes:["dynamic_id","course_code","batch","updatedAt"],
     order: [
       ["batch", "DESC"]]
     // order:['batch', 'DESC'],
   }).then(function(project){
+
     console.log(project);
     faculty_details.findOne({
       raw:true,

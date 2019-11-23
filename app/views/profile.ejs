@@ -12,7 +12,7 @@
     <a href="/logout">logout</a>
 
     <% for (var i =0; i < courses.length;  i++ ) { %>
-    <div><%= courses[i].course_code %>&nbsp;&nbsp;&nbsp;<%= courses[i].batch %>&nbsp;&nbsp;&nbsp;<%= courses[i].updatedAt%></div>
+    <div><a href="/courses/<%= courses[i].dynamic_id %>"><%= courses[i].course_code %></a>&nbsp;&nbsp;&nbsp;<%= courses[i].batch %>&nbsp;&nbsp;&nbsp;<%= courses[i].updatedAt%></div>
       <% } %>
 
 </body>
