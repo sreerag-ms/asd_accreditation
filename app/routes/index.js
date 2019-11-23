@@ -6,6 +6,11 @@ var session=require('express-session');
 var page_life=1000*3600*24;
 const bcrypt = require('bcrypt');
 const hash = 10;
+var dyn=require('../models/dynamic')
+
+var db=require('../models/dat');
+var faculty_details=require('../models/faculty_details');
+
 
 const{
   PORT=2000,
@@ -27,12 +32,7 @@ router.use(session({
   saveUninitialized:false,
 }));
 
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'phpmyadmin',
-    password : 'password',
-    database : 'accreditation'
-  });
+
   const redirectLogin= (req,res,next)=>{
     let sess=req.session;
     if(!(req.session.flag)){
@@ -57,9 +57,7 @@ router.get('/', function(req, res, next) {
   let sess=req.session;
     res.render('index', { title: 'Express' });
 });
-// router.post('/login', function(req, res, next) {
-//   res.render('login', { title: 'Express' });
-// });
+
 router.get('/login',redirectHome, function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
@@ -78,33 +76,64 @@ router.post('/login_check', bodyParser.urlencoded({ extended: false }),function 
   let sess=req.session;
   let user=req.body.userid;
   let pass=req.body.pass;
-  // let semester=parseInt(req.body.semester);
-  connection.query("SELECT fac_id,mailid FROM faculty_details WHERE fac_id LIKE '"+user+"' ", function(err, rows, fields)
-  {
-          console.log('Connection result error '+err);
-          if(rows.length==1){
-            console.log('user found');
-            
-            // res.writeHead(200, { 'Content-Type': 'application/json'});
-            // res.end(JSON.stringify(rows));
-            // res.end();
-            req.session.uniqueId=user;
-            req.session.flag=true;
-            res.redirect('/home');
-            console.log(req.session);
 
-          }
-          else{
 
-            res.redirect('/login');
-          }
+
+  faculty_details.findOne({
+    raw:true,
+    where: {fac_id: user},
+    attributes: ['password']
+  }).then(project => {
+      if(project){
+        bcrypt.compare(pass, project.password, function(err, rep) {
+          if(err)
+            console.log('hahaha');
+        if(rep==true){
+        req.session.uniqueId=user;
+        req.session.flag=true;
+        res.redirect('/home');
+        }
+        else
+        {
+        res.redirect('/login');
+      }
+      });
+      }
+      else{
+        console.log('no such User'+project.password);
+        
+      }
 
   })
   console.log(req.body.userid);
 });
 
 router.get('/home',redirectLogin,(req,res)=>{
-  res.render('profile',{title:req.session.uniqueId});
+  dyn.findAll({
+    raw:true,
+    where:{fac_id:req.session.uniqueId},
+    attributes:["course_code","batch","updatedAt"],
+    order: [
+      ["batch", "DESC"]]
+    // order:['batch', 'DESC'],
+  }).then(function(project){
+    console.log(project);
+    faculty_details.findOne({
+      raw:true,
+      where:{fac_id:req.session.uniqueId},
+      attributes:["name"]
+
+    }).then(function(facData){
+      console.log(facData);
+      
+      res.render('profile',{title:req.session.uniqueId,
+        courses:project,
+      facData:facData.name
+      });
+    })
+
+
+  })
 });
 
 module.exports = router;

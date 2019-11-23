@@ -7,9 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <%=title%><br>
+    <%=facData%><br>
     <a href="/home/add_course">add course</a>
     <a href="/logout">logout</a>
+
+    <% for (var i =0; i < courses.length;  i++ ) { %>
+    <div><%= courses[i].course_code %>&nbsp;&nbsp;&nbsp;<%= courses[i].batch %>&nbsp;&nbsp;&nbsp;<%= courses[i].updatedAt%></div>
+      <% } %>
 
 </body>
 </html>

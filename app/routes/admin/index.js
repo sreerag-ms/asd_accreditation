@@ -10,10 +10,10 @@ const saltRounds = 10;
 var db=require('../../models/dat');
 
 
-  db.authenticate()
-    .then(()=>console.log('connected to database'))
-    .catch(err=>(console.log('error')
-    ))
+  // db.authenticate()
+  //   .then(()=>console.log('connected to database'))
+  //   .catch(err=>(console.log('error')
+  //   ))
     const faculty_table=db.define('faculty_details',{
       fac_id:{
           type:Sequelize.STRING,

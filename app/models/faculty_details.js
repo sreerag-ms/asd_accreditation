@@ -1,22 +1,25 @@
-
 var express = require('express');
 var Sequelize = require('sequelize');
-var db=require('../models/dat')
-const dyn=db.define('course_dynamic',{
-    course_code:{
+var db=require('../models/dat');
+
+const facullty_details=db.define('faculty_details',{
+    fac_id:{
         type:Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
     },
-    fac_id:{
+    name:{
         type:Sequelize.STRING
     },
-    batch:{
+    mailid:{
         type:Sequelize.INTEGER
     },
+    password:{
+        type:Sequelize.STRING
+    }
 },{
+    timestamps:false,
     freezeTableName: true,
 
 })
-
-module.exports=dyn;
+module.exports=facullty_details;

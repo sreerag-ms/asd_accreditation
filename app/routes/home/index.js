@@ -11,13 +11,12 @@ const bcrypt = require('bcrypt');
 const hash = 10;
 var db=require('../../models/dat');
 var course_list=require('../../models/course_list');
-
 var dyn=require('../../models/dynamic')
 
-  db.authenticate()
-    .then(()=>console.log('connected to database'))
-    .catch(err=>(console.log('error')
-    ))
+  // db.authenticate()
+  //   .then(()=>console.log('connected to database'))
+  //   .catch(err=>(console.log('error')
+  //   ))
 
 
 
@@ -45,6 +44,10 @@ router.use(session({
 
 
 router.get('/add_course',(req,res)=>{
+
+if(!req.session.uniqueId){
+  res.redirect('/login');
+}
 course_list.findAll({
   raw:true,
 
@@ -69,24 +72,34 @@ router.post('/add_course',bodyParser.urlencoded({ extended: false }),(req,res)=>
   var year=req.body.batch;
 
   var s=req.session;
-  res.send(s.uniqueId);
+  // res.send(s.uniqueId);
   const data={
     course_code:courseid,
     fac_id:s.uniqueId,
     batch:year
 }
-let {course_code,fac_id,batch}=data;
+
+
+// let {course_code,fac_id,batch}=data;
 dyn.create({
-  course_code,fac_id,batch
+  course_code:courseid,
+  fac_id:s.uniqueId,  
+  batch:year
 })
-.then(()=>{res.redirect('/home');
+.then(()=>{
+console.log("data loaded");
+res.redirect('/home');
+
+
 })
-.catch(err=>console.log("error")
+.catch(err=>{console.log("error in loading course data "+err+" "+courseid);
+
+}
 )
 
-  // 
-
 })
+
+
 
 
 
