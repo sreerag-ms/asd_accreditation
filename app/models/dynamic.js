@@ -17,6 +17,13 @@ const dyn=db.define('course_dynamic',{
     batch:{
         type:Sequelize.INTEGER
     },
+    internal_no:{
+        type:Sequelize.INTEGER
+    },
+    assignment_no:{
+        type:Sequelize.INTEGER
+    }
+
 },{
     freezeTableName: true,
 

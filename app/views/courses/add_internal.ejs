@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="internalNo" placeholder="internal No" value=<%= internal_no %>> 
+    <input type="text" id="co_1_total" placeholder="Total co 1"> 
+    <input type="text" id="co_2_total" placeholder="Total co 2"> 
+    <input type="text" id="co_3_total" placeholder="Total co 3"> 
+    <input type="text" id="co_4_total" placeholder="Total co 4"> 
+    <input type="text" id="co_5_total" placeholder="Total co 5"> 
+    <input type="text" id="co_6_total" placeholder="Total co 6"> <br>
+    <button onclick="createJSON()">Add internal</button> <br>
+    <input type="text" id="studNo" placeholder="internal No"> 
+    <input type="text" id="co_1" placeholder="Attained co 1">
+    <input type="text" id="co_2" placeholder="Attained co 2">
+    <input type="text" id="co_3" placeholder="Attained co 3">
+    <input type="text" id="co_4" placeholder="Attained co 4">
+    <input type="text" id="co_5" placeholder="Attained co 5">
+    <input type="text" id="co_6" placeholder="Attained co 6">
+    <button onclick="addToStudentList()">+Add</button>
+    <button onclick="sendJSON()">send</button>
+</body>
+<script src="/script/add_internal_client.js"></script>
+</html>
