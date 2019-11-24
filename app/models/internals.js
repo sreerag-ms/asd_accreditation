@@ -3,16 +3,21 @@ var Sequelize = require('sequelize');
 var db=require('../models/dat')
 const internals=db.define('internals',{
     adm_no:{
-        type:Sequelize.INTEGER
+        type:Sequelize.INTEGER,
+        primaryKey:true
     },
     dynamic_id:{
-            type:Sequelize.INTEGER
+            type:Sequelize.INTEGER,
+            primaryKey:true
+
     },
     course_code:{
         type:Sequelize.STRING,
     },
     internal_no:{
-        type:Sequelize.INTEGER
+        type:Sequelize.INTEGER,
+        primaryKey:true
+
     },
     co_1:{
         type:Sequelize.INTEGER

@@ -26,6 +26,38 @@ router.get('/:uid', (req, res)=> {
 
   router.post('/:uid',(req,res)=>{
     console.log(req.body);
+    var studentInternal=req.body.student;
+    var totalInternal=req.body.total_co;
+
+
+    var dynamicId=parseInt(req.params.uid);
+    console.log(dynamicId);
+    for (i = 0; i < studentInternal.length; i++) {
+        var data={
+            adm_no:parseInt(studentInternal[i].admNo),
+            internal_no:parseInt(totalInternal.internalNo),
+            dynamic_id:dynamicId,
+            co_1:parseInt(studentInternal[i].co_1),
+            co_1_total:parseInt(totalInternal.co_1_total),
+            co_2:parseInt(studentInternal[i].co_2),
+            co_2_total:parseInt(totalInternal.co_2_total),
+            co_3:parseInt(studentInternal[i].co_3),
+            co_3_total:parseInt(totalInternal.co_3_total),
+            co_4:parseInt(studentInternal[i].co_4),
+            co_4_total:parseInt(totalInternal.co_4_total),
+            co_5:parseInt(studentInternal[i].co_5),
+            co_5_total:parseInt(totalInternal.co_5_total),
+            co_6:parseInt(studentInternal[i].co_6),
+            co_6_total:parseInt(totalInternal.co_6_total),
+        }
+        internals.create(data).then(user => {
+            // let's assume the default of isAdmin is false:
+            console.log(data);
+            
+          })
+    }
+
+
   })
 
 
