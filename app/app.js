@@ -15,8 +15,12 @@ var db=require('./models/dat');
 var adminRouter=require('./routes/admin/index');
 var courseRouter=require('./routes/home/course');
 var addInternalRouter = require('./routes/home/course/add_internal');
+var addAssignmentRouter = require('./routes/home/course/add_assignment');
 var editInternalRouter = require('./routes/home/course/edit_internal');
 var internalList = require('./routes/home/course/list_internal');
+var assignmentList = require('./routes/home/course/list_assignment');
+var addSemRouter = require('./routes/home/course/add_sem');
+
 
 
 const{
@@ -79,8 +83,11 @@ app.use('/testingOnly',testRouter);
 app.use('/admin',adminRouter);
 app.use('/courses',courseRouter);
 app.use('/course/add_internal',addInternalRouter);
+app.use('/course/add_assignment',addAssignmentRouter);
 app.use('/course/edit_internal',editInternalRouter);
 app.use('/course/internal_list',internalList);
+app.use('/course/assignment_list',assignmentList);
+app.use('/course/add_sem',addSemRouter);
 
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {

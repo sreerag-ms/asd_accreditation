@@ -12,6 +12,14 @@
           <div> INTERNAL No  : <%= internalData[i].internal_no %></a>&nbsp;&nbsp;&nbsp; </div>
         
           <% } %>
-          <a href="/course/add_internal/<%= dynamicId%>">Add internals</a>
+          <a href="/course/add_internal/<%= dynamicId%>">Add internals</a><br>
+          <h1>ASSIGNMENT</h1>
+    <% for (var i =0; i < assignmentData.length;  i++ ) { %>
+          <a href="/course/assignment_list/<%= dynamicId%>/<%= assignmentData[i].assignment_no %>">view marks</a>
+          <div> Assignment No  : <%= assignmentData[i].assignment_no %></a>&nbsp;&nbsp;&nbsp; </div>
+          <% } %>
+          <a href="/course/add_assignment/<%= dynamicId%>">Add assignment</a><br>
+          <h1>END SEMESTER</h1>
+          <a href="/course/add_sem/<%= dynamicId%>">Add semester marks</a>
 </body>
 </html>
