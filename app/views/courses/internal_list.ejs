@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <table style="width:100%">
+            <tr>
+              <th>Admission No</th>
+              <th>co1</th>
+              <th>co2</th>
+              <th>co3</th>
+              <th>co4</th>
+              <th>co5</th>
+              <th>co6</th>
+            </tr>
+            <% for (var i =0; i < internalList.length;  i++ ) { %>
+              <tr>
+                <td><%= internalList[i].adm_no %></td>
+                <td><%= internalList[i].co_1 %> / <%= internalList[i].co_1_total %></td>
+                <td><%= internalList[i].co_2 %> / <%= internalList[i].co_2_total %></td>
+                <td><%= internalList[i].co_3 %> / <%= internalList[i].co_3_total %></td>
+                <td><%= internalList[i].co_4 %> / <%= internalList[i].co_4_total %></td>
+                <td><%= internalList[i].co_5 %> / <%= internalList[i].co_5_total %></td>
+                <td><%= internalList[i].co_6 %> / <%= internalList[i].co_6_total %></td>
+              </tr>
+              <% } %>
+            
+          </table>
+    </body>
+</html>

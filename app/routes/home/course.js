@@ -13,15 +13,16 @@ router.get('/:uid', function testfn(req, res) {
     internals.findAll({
         raw:true,
         where:{dynamic_id:dynamicId},
-        attributes:["internal_no","co_1"]
+        attributes:["internal_no"],
+        group:["internal_no"]
     }).then(internalData=>{
         
         if(internalData.length==0){
-            console.log("no data");
-            res.render('courses/internal');
+            console.log("no internals so far on : "+dynamicId );
+            res.render('courses/internal',{internalData:internalData,dynamicId:dynamicId});
         }
         else{
-            console.log(internalData.length);
+            console.log("No of internals on : "+dynamicId+"=="+ internalData.length);
             res.render('courses/internal',{internalData:internalData,dynamicId:dynamicId});
         }
     })

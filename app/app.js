@@ -14,7 +14,10 @@ var session=require('express-session');
 var db=require('./models/dat');
 var adminRouter=require('./routes/admin/index');
 var courseRouter=require('./routes/home/course');
-var internalRouter = require('./routes/home/course/add_internal')
+var addInternalRouter = require('./routes/home/course/add_internal');
+var editInternalRouter = require('./routes/home/course/edit_internal');
+var internalList = require('./routes/home/course/list_internal');
+
 
 const{
   PORT=2000,
@@ -75,7 +78,9 @@ app.use('/logged_in',loggedInRouter);
 app.use('/testingOnly',testRouter);
 app.use('/admin',adminRouter);
 app.use('/courses',courseRouter);
-app.use('/course/add_internal',internalRouter);
+app.use('/course/add_internal',addInternalRouter);
+app.use('/course/edit_internal',editInternalRouter);
+app.use('/course/internal_list',internalList);
 
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {

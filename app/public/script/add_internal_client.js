@@ -8,10 +8,8 @@ function createJSON(){
     var co4 = parseInt(document.getElementById('co_4_total').value);
     var co5 = parseInt(document.getElementById('co_5_total').value);
     var co6 = parseInt(document.getElementById('co_6_total').value);
-    data = { 
-        
+    data = {
         total_co:{
-            
         internalNo:internalNo,
         co_1_total:co1,
         co_2_total:co2,
@@ -21,7 +19,7 @@ function createJSON(){
         co_6_total:co6,
     },
     student:[]
-    }; 
+    };
     console.log(data);
     
 } 
@@ -49,13 +47,12 @@ function addToStudentList()
 
 }
 
-function sendJSON(){ 
-               
-    let result = document.querySelector('.result'); 
+function sendJSON(){
+    let result = document.querySelector('.result');
     var dynamincId=document.getElementById('internalNo').value;
-    // Creating a XHR object 
+    // Creating a XHR object
 
-    xhr = new XMLHttpRequest(); 
+    xhr = new XMLHttpRequest();
     url = "/course/add_internal/"+dynamincId; 
 
     // open a connection
@@ -65,18 +62,19 @@ function sendJSON(){
     xhr.setRequestHeader("Content-Type", "application/json");
 
     // Create a state change callback
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
 
-            // Print received data from server
-            result.innerHTML = this.responseText;
+    //         // Print received data from server
+    //         result.innerHTML = this.responseText;
 
-        }
-    };
+    //     }
+    // };
 
     // Converting JSON data to string
     var sendFile = JSON.stringify(data);
 
     // Sending data with the request
     xhr.send(sendFile);
+    window.location.replace("/home");
 }

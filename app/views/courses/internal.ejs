@@ -8,7 +8,9 @@
 </head>
 <body><h1>INTERNALS</h1>
     <% for (var i =0; i < internalData.length;  i++ ) { %>
-        <div> Assignment : <%= internalData[i].internal_no %></a>&nbsp;&nbsp;&nbsp;<%= internalData[i].co_1 %>&nbsp;&nbsp;&nbsp;</div>
+          <a href="/course/internal_list/<%= dynamicId%>/<%= internalData[i].internal_no %>">view marks</a>
+          <div> INTERNAL No  : <%= internalData[i].internal_no %></a>&nbsp;&nbsp;&nbsp; </div>
+        
           <% } %>
           <a href="/course/add_internal/<%= dynamicId%>">Add internals</a>
 </body>

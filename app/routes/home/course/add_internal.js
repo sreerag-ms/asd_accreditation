@@ -4,19 +4,19 @@ var bodyParser = require('body-parser');
 var internals = require('../../../models/internals');
 var dyn = require('../../../models/dynamic')
 var Sequelize = require('sequelize');
-
+var dynamicId;
 router.get('/:uid', (req, res)=> {
-    var dynamicId=parseInt(req.params.uid);
+  dynamicId=parseInt(req.params.uid);
     console.log(dynamicId+"inside the add_internal router");
     console.log(req.session.uniqueId);
-    // res.send=dynamicId;
+    
     dyn.findOne({
         raw:true,
         where:{dynamic_id:dynamicId},
         attributes:["internal_no"]
     }).then(courseDynamic=>{
         var internal_no=parseInt(courseDynamic.internal_no);
-        console.log(internal_no);
+        console.log("internal N0 " + internal_no + "on dynId" + dynamicId );
         res.render('courses/add_internal',{internal_no:(internal_no+1)});
 
     })
@@ -30,7 +30,7 @@ router.get('/:uid', (req, res)=> {
     var totalInternal=req.body.total_co;
 
 
-    var dynamicId=parseInt(req.params.uid);
+    // var dynamicId=parseInt(req.params.uid);
     console.log(dynamicId);
     for (i = 0; i < studentInternal.length; i++) {
         var data={
@@ -53,7 +53,25 @@ router.get('/:uid', (req, res)=> {
         internals.create(data).then(user => {
             // let's assume the default of isAdmin is false:
             console.log(data);
-            
+          }).then(()=>{
+            dyn.update(
+                { internal_no:parseInt(totalInternal.internalNo)},
+                { where: {dynamic_id:dynamicId}}
+              )
+                .then(result =>
+                  {
+                    console.log('added data Redirecting home now');
+                    res.redirect('/home');
+                  }
+                )
+                // .catch(err =>
+                //   {
+                //     console.log('Error in adding'+err);
+                    
+                //   }
+                // )
+
+              
           })
     }
 
