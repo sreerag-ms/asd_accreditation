@@ -1,0 +1,55 @@
+
+.heading{
+    text-align: center;
+    margin-top: 3vh;
+    font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:#76B852;
+}
+
+.hline{
+    width:096%;
+    height: 6px;
+    background-color: #76B852;
+    position: absolute;
+    top: 10vh;
+    left: 2vw;
+}
+
+.course{
+    margin-left: 6vw;
+    margin-top: 4vh;
+    color: #222;
+    background-color: white;
+    width: 65vw;
+    height: 4.8vh;
+}
+/* .course:hover{
+    background-color: #76B852;
+    color: white;
+} */
+.year{
+    width: 20vw;
+    height: 4vh;
+}
+
+.add{
+    background-color: #76B852;
+    border: none;
+    color: white;
+    width: 10%;
+    height: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2vh;
+    cursor: pointer;
+    margin-left: 44vw;
+    margin-top: 10vh;
+}
+

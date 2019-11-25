@@ -126,7 +126,7 @@ router.get('/home',redirectLogin,(req,res)=>{
       attributes:["name"]
 
     }).then(function(facData){
-      console.log(facData);
+      console.log(facData+"in home");
       
       res.render('profile',{title:req.session.uniqueId,
         courses:project,

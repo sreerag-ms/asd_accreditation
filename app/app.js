@@ -20,7 +20,7 @@ var editInternalRouter = require('./routes/home/course/edit_internal');
 var internalList = require('./routes/home/course/list_internal');
 var assignmentList = require('./routes/home/course/list_assignment');
 var addSemRouter = require('./routes/home/course/add_sem');
-
+var genResRouter = require('./routes/home/generate_res')
 
 
 const{
@@ -88,6 +88,7 @@ app.use('/course/edit_internal',editInternalRouter);
 app.use('/course/internal_list',internalList);
 app.use('/course/assignment_list',assignmentList);
 app.use('/course/add_sem',addSemRouter);
+app.use('/course/gen_result',genResRouter);
 
 connection.connect();
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {

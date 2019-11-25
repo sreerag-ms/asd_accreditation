@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,4 +16,52 @@
       <% } %>
 
 </body>
+</html> -->
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>PROFILE</title>
+</head>
+
+<body>
+    <h3 class="head">PROFILE</h3>
+    <hr class="line">
+    <div class="vl"> </div>
+    <div class="container">
+        <img src="./Images/propic.png" class="propic">
+        <div class="details"> <%=facData%>
+            <br>
+            <div class="id">
+                ID</div>
+            <br>
+            <div class="email">
+                Email</div>
+        </div>
+        <br>
+        <br>
+        <div class="us">
+            _______________<br>
+            _______________<br>
+            _______________<br>
+            _______________<br>
+        </div>
+        <a href="/logout"><button class="btn">Log out</button></a>
+    </div>
+    <div class="list">
+            <% for (var i =0; i < courses.length;  i++ ) { %>
+                <a href="/courses/<%= courses[i].dynamic_id %>">
+    <div class="course_btn" >COURSE-CODE:<%= courses[i].course_code %><br>COURSE-CODE:YEAR:<%= courses[i].batch %><br>
+        <button class="btn1">Internal</button>
+        <button class="btn1">Assignment</button>
+        <button class="btn1">University</button>
+
+    </div></a>
+    <% } %>
+
+   <a href="/home/add_course"><button class="add">ADD+</button></a>
+    </div>
+</body>
+
 </html>

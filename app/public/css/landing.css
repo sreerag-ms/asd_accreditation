@@ -1,0 +1,43 @@
+
+.nba{
+    color: #76B852;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 10vh;
+    text-align: center;
+}
+
+.add{
+    background-color: #76B852;
+    border: none;
+    color: white;
+    width: 12%;
+    height: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2.5vh;
+    cursor: pointer;
+    position :absolute;
+    top: 75%;
+    left: 44%;
+}
+
+.college{
+color: grey;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+margin-top: 3vh;
+text-align: center;
+}
+.image{
+height: 30vh;
+width: auto;
+margin-top: 8vh;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}

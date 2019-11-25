@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,5 +27,31 @@
             <br><br>
             <input type="submit">
           </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/add_course.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Course</title>
+</head>
+<body>
+    <p class="heading">ADD COURSE</p>
+    <hr class="hline">
+    <form method="post" action="/home/add_course">
+   
+      <select name="course" class="course">
+          <% for (var i =0; i < courseList.length;  i++ ) { %>
+            <option value=<%= courseList[i].course_code %>><%= courseList[i].course_code %>--<%= courseList[i].name %></option>
+
+          <% } %>
+      </select>
+    <input type="text" name="batch" id="year" class="year" placeholder="year">
+    <!-- <button class="add">ADD+</button> -->
+    <input type="submit" class="add" value="add">
 </body>
 </html>

@@ -68,7 +68,7 @@ course_list.findAll({
 
 router.post('/add_course',bodyParser.urlencoded({ extended: false }),(req,res)=>{
   var courseid=req.body.course;
-  var coursename=req.body.course_name;
+  // var coursename=req.body.course_name;
   var year=req.body.batch;
 
   var s=req.session;

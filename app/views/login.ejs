@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <title></title>
@@ -13,5 +13,30 @@
     <input type="password" name="pass">
     <input type="submit">
 </form>
+    </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/login.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="form">
+              <form class="login-form" action="/login_check" method="POST">
+                <input type="text" id="userName" placeholder="username" name="userid" />
+                <input type="password" id="pass" placeholder="password" name="pass"/>
+                <input type="submit" class="" value="LOGIN"> 
+                <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+              </form>
+            </div>
+          </div>
+
+          <script src="script/login.js"></script>
     </body>
 </html>
